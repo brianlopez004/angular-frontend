@@ -1,1 +1,37 @@
-<p>login works!</p>
+<section>
+  <div class="container mt-5">
+    <div class="row pt-2">
+      <div class="col-12 col-sm-7 col-md-6 m-auto">
+        <div class="card border-0 shadow">
+          <div class="card-body">
+            <h5 class="fw-bold pt-2">Start in Dashboard</h5>
+            <form [formGroup]="loginForm">
+              <input
+                formControlName="email"
+                type="text"
+                name=""
+                id=""
+                class="form-control my-4 py-2"
+                placeholder="Email"
+              />
+              <input
+                formControlName="password"
+                type="password"
+                name=""
+                id=""
+                class="form-control my-4 py-2"
+                placeholder="Password"
+              />
+              <div class="text-center mt-3">
+                <button (click)="Login()" type="submit" class="btn btn-outline-primary w-100">
+                  Login
+                </button>
+                <a href="#" class="nav-link mt-2">You don't have an account?</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,3 +1,11 @@
-.card-body i:hover{
-  color: #0D6EFD;
+.card-footer{
+  height: 48px;
+}
+
+.card-footer i {
+  font-size: 20px;
+}
+
+.card-footer i:hover {
+  color: #000;
 }
