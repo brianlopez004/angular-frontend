@@ -1,1 +1,4 @@
-<p>dashboard works!</p>
+<app-nav></app-nav>
+
+<p *ngIf="!userLoginOn">Unauthenticated user</p>
+<p *ngIf="userLoginOn">Authenticated user</p>
