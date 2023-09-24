@@ -15,10 +15,9 @@ export class LoginComponent {
     private router: Router,
     private loginService: LoginService
   ) {}
-
   loginError: string = '';
   loginForm = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: ['brrnzz@gmail.com', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 
@@ -32,28 +31,26 @@ export class LoginComponent {
     return this.loginForm.controls.password;
   }
 
-  login(){
-    if(this.loginForm.valid){
-      this.loginError="";
+  login() {
+    if (this.loginForm.valid) {
+      this.loginError = '';
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
         next: (userData) => {
           console.log(userData);
         },
         error: (errorData) => {
           console.error(errorData);
-          this.loginError=errorData;
+          this.loginError = errorData;
         },
         complete: () => {
-          console.info("Login completo");
+          console.info('Login completo');
           this.router.navigateByUrl('/inicio');
           this.loginForm.reset();
-        }
-      })
-
-    }
-    else{
+        },
+      });
+    } else {
       this.loginForm.markAllAsTouched();
-      alert("Ingresa los campos");
+      alert('Ingresa los campos correctamente');
     }
   }
 }
