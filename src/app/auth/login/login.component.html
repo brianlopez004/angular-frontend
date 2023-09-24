@@ -14,6 +14,20 @@
                 class="form-control my-4 py-2"
                 placeholder="Email"
               />
+
+              <!-- Mensajes de error (email) -->
+              <div
+                *ngIf="getemail.invalid && (getemail.dirty || getemail.touched)"
+                class="text-danger"
+              >
+                <div *ngIf="getemail.errors?.['required']">
+                  Email is required.
+                </div>
+                <div *ngIf="getemail.errors?.['email']">
+                  The email must be formatted correctly.
+                </div>
+              </div>
+
               <input
                 formControlName="password"
                 type="password"
@@ -22,8 +36,26 @@
                 class="form-control my-4 py-2"
                 placeholder="Password"
               />
+
+              <!-- Mensajes de error (password) -->
+              <div
+                *ngIf="
+                  getpassword.invalid &&
+                  (getpassword.dirty || getpassword.touched)
+                "
+                class="text-danger"
+              >
+                <div *ngIf="getpassword.errors?.['required']">
+                  Password is required.
+                </div>
+              </div>
+
               <div class="text-center mt-3">
-                <button (click)="Login()" type="submit" class="btn btn-outline-primary w-100">
+                <button
+                  (click)="Login()"
+                  type="submit"
+                  class="btn btn-outline-primary w-100"
+                >
                   Login
                 </button>
                 <a href="#" class="nav-link mt-2">You don't have an account?</a>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,18 +8,31 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private formBuilder: FormBuilder) {}
-
   loginForm = this.formBuilder.group({
-    email: ['braian@gmail.com', [Validators.required, Validators.email]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 
-  Login(): void {
+  constructor(private formBuilder: FormBuilder, private router: Router) {}
+
+  ngOnInit(): void {}
+
+  get getemail() {
+    return this.loginForm.controls.email;
+  }
+
+  get getpassword() {
+    return this.loginForm.controls.password;
+  }
+
+  Login() {
     if (this.loginForm.valid) {
       console.log('Llamar al servicio de Login');
+      this.router.navigateByUrl('/inicio');
+      this.loginForm.reset;
     } else {
-      alert('Error!');
+      this.loginForm.markAllAsTouched;
+      // alert('Error!');
     }
   }
 }
