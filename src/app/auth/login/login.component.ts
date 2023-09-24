@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/auth/login.service';
+import { LoginRequest } from 'src/app/services/auth/loginRequest';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +10,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private loginService: LoginService
+  ) {}
+
+  loginError: string = '';
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
-
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -25,14 +32,28 @@ export class LoginComponent {
     return this.loginForm.controls.password;
   }
 
-  Login() {
-    if (this.loginForm.valid) {
-      console.log('Llamar al servicio de Login');
-      this.router.navigateByUrl('/inicio');
-      this.loginForm.reset;
-    } else {
-      this.loginForm.markAllAsTouched;
-      // alert('Error!');
+  login(){
+    if(this.loginForm.valid){
+      this.loginError="";
+      this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
+        next: (userData) => {
+          console.log(userData);
+        },
+        error: (errorData) => {
+          console.error(errorData);
+          this.loginError=errorData;
+        },
+        complete: () => {
+          console.info("Login completo");
+          this.router.navigateByUrl('/inicio');
+          this.loginForm.reset();
+        }
+      })
+
+    }
+    else{
+      this.loginForm.markAllAsTouched();
+      alert("Ingresa los campos");
     }
   }
 }
